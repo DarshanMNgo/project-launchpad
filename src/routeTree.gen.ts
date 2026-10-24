@@ -10,12 +10,30 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AnomaliesRouteImport } from './routes/anomalies'
+import { Route as ForecastsRouteImport } from './routes/forecasts'
+import { Route as WasteRouteImport } from './routes/waste'
 import { Route as BuildingsIndexRouteImport } from './routes/buildings.index'
 import { Route as BuildingsIdRouteImport } from './routes/buildings.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnomaliesRoute = AnomaliesRouteImport.update({
+  id: '/anomalies',
+  path: '/anomalies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForecastsRoute = ForecastsRouteImport.update({
+  id: '/forecasts',
+  path: '/forecasts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WasteRoute = WasteRouteImport.update({
+  id: '/waste',
+  path: '/waste',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BuildingsIndexRoute = BuildingsIndexRouteImport.update({
@@ -31,30 +49,61 @@ const BuildingsIdRoute = BuildingsIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/anomalies': typeof AnomaliesRoute
+  '/forecasts': typeof ForecastsRoute
+  '/waste': typeof WasteRoute
   '/buildings/$id': typeof BuildingsIdRoute
   '/buildings/': typeof BuildingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/anomalies': typeof AnomaliesRoute
+  '/forecasts': typeof ForecastsRoute
+  '/waste': typeof WasteRoute
   '/buildings/$id': typeof BuildingsIdRoute
   '/buildings': typeof BuildingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/anomalies': typeof AnomaliesRoute
+  '/forecasts': typeof ForecastsRoute
+  '/waste': typeof WasteRoute
   '/buildings/$id': typeof BuildingsIdRoute
   '/buildings/': typeof BuildingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/buildings/$id' | '/buildings/'
+  fullPaths:
+    | '/'
+    | '/anomalies'
+    | '/forecasts'
+    | '/waste'
+    | '/buildings/$id'
+    | '/buildings/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/buildings/$id' | '/buildings'
-  id: '__root__' | '/' | '/buildings/$id' | '/buildings/'
+  to:
+    | '/'
+    | '/anomalies'
+    | '/forecasts'
+    | '/waste'
+    | '/buildings/$id'
+    | '/buildings'
+  id:
+    | '__root__'
+    | '/'
+    | '/anomalies'
+    | '/forecasts'
+    | '/waste'
+    | '/buildings/$id'
+    | '/buildings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnomaliesRoute: typeof AnomaliesRoute
+  ForecastsRoute: typeof ForecastsRoute
+  WasteRoute: typeof WasteRoute
   BuildingsIdRoute: typeof BuildingsIdRoute
   BuildingsIndexRoute: typeof BuildingsIndexRoute
 }
@@ -66,6 +115,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/anomalies': {
+      id: '/anomalies'
+      path: '/anomalies'
+      fullPath: '/anomalies'
+      preLoaderRoute: typeof AnomaliesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forecasts': {
+      id: '/forecasts'
+      path: '/forecasts'
+      fullPath: '/forecasts'
+      preLoaderRoute: typeof ForecastsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/waste': {
+      id: '/waste'
+      path: '/waste'
+      fullPath: '/waste'
+      preLoaderRoute: typeof WasteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/buildings/': {
@@ -87,6 +157,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnomaliesRoute: AnomaliesRoute,
+  ForecastsRoute: ForecastsRoute,
+  WasteRoute: WasteRoute,
   BuildingsIdRoute: BuildingsIdRoute,
   BuildingsIndexRoute: BuildingsIndexRoute,
 }

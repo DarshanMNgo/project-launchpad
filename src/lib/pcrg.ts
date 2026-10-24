@@ -92,3 +92,18 @@ export const fmt = (n: number | null | undefined, d = 0) =>
   n == null || Number.isNaN(n) ? "insufficient data" : n.toLocaleString("en-IN", { maximumFractionDigits: d, minimumFractionDigits: d });
 export const fmtShort = (n: number) =>
   n >= 1e7 ? `${(n / 1e7).toFixed(2)} Cr` : n >= 1e5 ? `${(n / 1e5).toFixed(2)} L` : n >= 1e3 ? `${(n / 1e3).toFixed(1)}k` : n.toFixed(0);
+
+/** Segregation route per predicted class; organics go to on-site composting only where the building has a composter. */
+export function routeFor(cls: string, buildingId: string) {
+  const b = BUILDINGS.find((x) => x.building_id === buildingId);
+  switch (cls) {
+    case "food_organic": return b?.has_composter ? "On-site composter" : "Collect for central composting (no composter here)";
+    case "paper_cardboard": return "Dry recycling — keep dry, flatten";
+    case "plastic": return "Dry recycling — rinse, sort by type";
+    case "glass": return "Glass recycling — separate, handle carefully";
+    case "metal": return "Metal recycling";
+    case "ewaste": return "Designated e-waste route — authorised recycler only";
+    default: return "Review";
+  }
+}
+

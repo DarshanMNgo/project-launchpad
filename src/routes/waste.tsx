@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Download } from "lucide-react";
-import { BUILDINGS, DATA, bName, fmt } from "@/lib/pcrg";
+import { BUILDINGS, DATA, bName, fmt, routeFor } from "@/lib/pcrg";
 import { Btn, Kpi, PageHeader, Panel, Select, Table, Tag } from "@/components/kit";
 
 export const Route = createFileRoute("/waste")({
@@ -19,19 +19,6 @@ export const Route = createFileRoute("/waste")({
 type Pred = { event_id: string; timestamp: string; building_id: string; bin_id: string; weight_g: number; predicted: string; confidence: number; status: string };
 const PREDS: Pred[] = DATA.predictions;
 const CLASSES = DATA.model.labels as string[];
-
-export function routeFor(cls: string, buildingId: string) {
-  const b = BUILDINGS.find((x) => x.building_id === buildingId);
-  switch (cls) {
-    case "food_organic": return b?.has_composter ? "On-site composter" : "Collect for central composting (no composter here)";
-    case "paper_cardboard": return "Dry recycling — keep dry, flatten";
-    case "plastic": return "Dry recycling — rinse, sort by type";
-    case "glass": return "Glass recycling — separate, handle carefully";
-    case "metal": return "Metal recycling";
-    case "ewaste": return "Designated e-waste route — authorised recycler only";
-    default: return "Review";
-  }
-}
 
 const PAGE = 25;
 
