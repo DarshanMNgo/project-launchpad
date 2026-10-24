@@ -3,7 +3,7 @@
 // readings, delivery delays, missing-hour gaps, building-alias resolution and
 // unit normalisation — so an upload shows the same checks the offline pipeline
 // applies before it regenerates src/data/pcrg.json.
-import { KG_PER_BAG } from "@/lib/pcrg";
+import { BUILDINGS, KG_PER_BAG } from "@/lib/pcrg";
 
 export type Row = Record<string, string | number | boolean | null | undefined>;
 
@@ -29,7 +29,6 @@ export const RANGE = { electricity_kwh: [0, 500], water_litres: [0, 50000], sola
 
 // Manual-log alias table, identical to scripts/build_data.py: every building's
 // own ID and name (lowercase) plus the free-text variants staff actually type.
-import { BUILDINGS } from "@/lib/pcrg";
 export const ALIAS: Record<string, string> = Object.fromEntries(
   BUILDINGS.flatMap((b) => [[b.building_id.toLowerCase(), b.building_id], [b.building_name.toLowerCase(), b.building_id]]),
 );
