@@ -27,12 +27,17 @@ export const LABEL: Record<Kind, string> = {
 // Plausibility windows, identical to scripts/build_data.py.
 export const RANGE = { electricity_kwh: [0, 500], water_litres: [0, 50000], solar_generation_kwh: [0, 200], footfall: [0, 5000] } as const;
 
-// Manual-log alias table, identical to scripts/build_data.py.
-export const ALIAS: Record<string, string> = {
+// Manual-log alias table, identical to scripts/build_data.py: every building's
+// own ID and name (lowercase) plus the free-text variants staff actually type.
+import { BUILDINGS } from "@/lib/pcrg";
+export const ALIAS: Record<string, string> = Object.fromEntries(
+  BUILDINGS.flatMap((b) => [[b.building_id.toLowerCase(), b.building_id], [b.building_name.toLowerCase(), b.building_id]]),
+);
+Object.assign(ALIAS, {
   bh: "B05", "boys hostle": "B05", gh: "B06", "girls hostle": "B06", fc: "B07", canteen: "B07",
   admin: "B08", library: "B03", "central lib": "B03", "eng labs": "B04", labs: "B04",
   "innovation centre": "B04", "acad block a": "B01", "block a": "B01", "acad block b": "B02", "block b": "B02",
-};
+});
 
 // Unit normalisation; "bags" are estimated at KG_PER_BAG kg each.
 export const UNITS: Record<string, { f: number; unit: string; est: boolean }> = {

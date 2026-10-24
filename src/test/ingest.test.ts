@@ -44,6 +44,8 @@ describe("Dataset upload validation (mirrors scripts/build_data.py)", () => {
   it("resolves manual-log aliases the same way as the pipeline", () => {
     expect(ALIAS["boys hostle"]).toBe("B05");
     expect(ALIAS["central lib"]).toBe("B03");
+    expect(ALIAS["b03"]).toBe("B03");
+    expect(ALIAS["academic block a"]).toBe("B01");
     const rep = analyzeLogs([
       { log_id: "L1", building: "Boys Hostle", value: 3, unit: "bags" },
       { log_id: "L2", building: "Robotics Lab", value: 5, unit: "kWh" },
