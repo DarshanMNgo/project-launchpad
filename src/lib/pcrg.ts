@@ -72,11 +72,12 @@ export function filterDaily(opts: { from?: string; to?: string; building?: strin
   });
 }
 
-/** Circularity score 0–100: 50% diversion, 30% (1 - contamination/50), 20% landfill-per-occupant vs campus median. */
+/** Circularity score 0–100 = 50·diversion + 30·(1 − contamination/50%) + 20·(1 − 0.5·landfillPerOcc/campusMedian), each term clamped 0–1. */
 export function circularityScore(diversion: number | null, contamination: number | null, landfillPerOcc: number, medianLandfillPerOcc: number) {
   const d = Math.max(0, Math.min(100, diversion ?? 0)) / 100;
   const c = 1 - Math.max(0, Math.min(50, contamination ?? 50)) / 50;
-  const i = medianLandfillPerOcc > 0 ? Math.max(0, Math.min(1, 1 - (landfillPerOcc - medianLandfillPerOcc) / (2 * medianLandfillPerOcc) - 0.5 + 0.5)) : 0.5;
+  // 1 at zero landfill, 0.5 at campus median, 0 at 2x median
+  const i = medianLandfillPerOcc > 0 ? 1 - 0.5 * (landfillPerOcc / medianLandfillPerOcc) : 0.5;
   return Math.round((0.5 * d + 0.3 * c + 0.2 * Math.max(0, Math.min(1, i))) * 100);
 }
 
