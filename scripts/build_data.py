@@ -175,6 +175,8 @@ def add(bid, metric, date, obs, base, kind, cause, action, role, extra_conf=0):
     conf = "high" if notes or extra_conf else ("medium" if evt is None else "low")
     alt = []
     if evt: alt.append(f"Calendar event '{evt}' may explain the change.")
+    if any(re.search(r"calibrat|odd|fault|faulty|meter|wrong|glitch", n, re.I) for n in notes):
+        alt.insert(0, "A manual note suggests a meter/sensor issue: the reading may be a data error rather than real consumption. Validate before acting.")
     alerts.append({"id": f"A{len(alerts)+1:04d}", "building_id": bid, "metric": metric, "date": date, "kind": kind,
                    "observed": R(obs), "baseline": R(base), "ratio": R(ratio), "severity": sev, "cause": cause,
                    "evidence": {"event": evt, "notes": notes, "day_type": ev.day_type.iloc[0] if len(ev) else None},
