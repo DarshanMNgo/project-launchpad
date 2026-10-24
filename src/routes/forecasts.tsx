@@ -5,7 +5,7 @@ import { BUILDINGS, CALENDAR, DATA, bName, fmt } from "@/lib/pcrg";
 import { Kpi, PageHeader, Panel, Select, Tag, tooltipStyle } from "@/components/kit";
 
 export const Route = createFileRoute("/forecasts")({
-  validateSearch: (s: Record<string, unknown>) => ({ b: typeof s.b === "string" ? s.b : "B01" }),
+  validateSearch: (s: Record<string, unknown>) => ({ b: typeof s["b"] === "string" ? s["b"] : "B01" }),
   head: () => ({
     meta: [
       { title: "Resource Forecasts — PCRG" },
@@ -32,7 +32,7 @@ function Forecasts() {
     ...f.observed.map((o: Pt) => ({ t: o.t, obs: o.v })),
     ...fc.map((x) => ({ t: x.t, fc: x.v, band: [x.lo, x.hi] })),
   ];
-  const peak = fc.reduce((m, x) => ((x.v ?? 0) > (m.v ?? 0) ? x : m), fc[0]);
+  const peak = fc.reduce((m, x) => ((x.v ?? 0) > (m.v ?? 0) ? x : m), fc[0] ?? { t: "", v: null });
   const unit = metric === "electricity_kwh" ? "kWh" : "L";
   const originDate = f.origin.slice(0, 10);
   const cal = CALENDAR.find((c) => c.date === originDate);

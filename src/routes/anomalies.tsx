@@ -84,7 +84,7 @@ function Anomalies() {
               {["acknowledged", "assigned", "resolved"].map((s) => <Btn key={s} variant="ghost" disabled={role === "Viewer / Judge"} onClick={() => act(a.id, s)}>{s}</Btn>)}
             </div>
             {st[a.id]?.log.length ? (
-              <div className="mt-3 text-xs text-muted-foreground"><b>Audit trail</b>{st[a.id].log.map((l, i) => <div key={i} className="num">{l.at} · {l.by} · {l.what}</div>)}</div>
+              <div className="mt-3 text-xs text-muted-foreground"><b>Audit trail</b>{st[a.id]?.log.map((l, i) => <div key={i} className="num">{l.at} · {l.by} · {l.what}</div>)}</div>
             ) : null}
           </Panel>
         )}

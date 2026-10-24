@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Legend, Line, ComposedChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { BUILDINGS, CALENDAR, DATES, bName, co2, cost, diversionRate, filterDaily, fmt, fmtShort, pumpingKwh, sumDaily, TARIFF_INR_PER_KWH, CO2_KG_PER_KWH, PUMP_KWH_PER_KL, totalWaste } from "@/lib/pcrg";
+import { FIRST_DATE, LAST_DATE, LAST30_DATE, BUILDINGS, CALENDAR, DATES, bName, co2, cost, diversionRate, filterDaily, fmt, fmtShort, pumpingKwh, sumDaily, TARIFF_INR_PER_KWH, CO2_KG_PER_KWH, PUMP_KWH_PER_KL, totalWaste } from "@/lib/pcrg";
 import { DateInput, Kpi, PageHeader, Panel, Select, Tag, tooltipStyle } from "@/components/kit";
 
 export const Route = createFileRoute("/")({
@@ -19,8 +19,8 @@ export const Route = createFileRoute("/")({
 const TYPES = ["all", ...Array.from(new Set(BUILDINGS.map((b) => b.building_type)))];
 
 function Overview() {
-  const [from, setFrom] = useState(DATES[DATES.length - 30]);
-  const [to, setTo] = useState(DATES[DATES.length - 1]);
+  const [from, setFrom] = useState(LAST30_DATE);
+  const [to, setTo] = useState(LAST_DATE);
   const [type, setType] = useState("all");
   const rows = useMemo(() => filterDaily({ from, to, type }), [from, to, type]);
   const t = sumDaily(rows);
@@ -50,8 +50,8 @@ function Overview() {
     <>
       <PageHeader title="Campus Overview" desc="All figures computed from the filtered daily summary records of the historical synthetic dataset."
         right={<div className="flex flex-wrap gap-3">
-          <DateInput label="From" value={from} onChange={setFrom} min={DATES[0]} max={to} />
-          <DateInput label="To" value={to} onChange={setTo} min={from} max={DATES[DATES.length - 1]} />
+          <DateInput label="From" value={from} onChange={setFrom} min={FIRST_DATE} max={to} />
+          <DateInput label="To" value={to} onChange={setTo} min={from} max={LAST_DATE} />
           <Select label="Building type" value={type} onChange={setType} options={TYPES.map((v) => ({ value: v, label: v === "all" ? "All types" : v }))} />
         </div>} />
       <div className="mb-2 text-xs text-muted-foreground">{t.days} days · {rows.length} building-day records · source: daily_summary.xlsx {t.missing > 0 && <Tag tone="warn">{t.missing} records with missing values</Tag>}</div>

@@ -23,6 +23,9 @@ export const DAILY: Daily[] = DATA.daily;
 export const CALENDAR: { date: string; day_type: string; event: string | null; avg_temp_c: number; rainfall_mm: number }[] = DATA.calendar;
 export const ALERTS: Alert[] = DATA.alerts;
 export const DATES: string[] = CALENDAR.map((c) => c.date);
+export const FIRST_DATE = DATES[0] as string;
+export const LAST_DATE = DATES[DATES.length - 1] as string;
+export const LAST30_DATE = DATES[DATES.length - 30] as string;
 
 // Assumptions from the PRD — visible in the UI.
 export const TARIFF_INR_PER_KWH = 8;

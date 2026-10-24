@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { BUILDINGS, COMPOST_RATIO, DATES, circularityScore, compostOutput, diversionRate, filterDaily, fmt, sumDaily } from "@/lib/pcrg";
+import { FIRST_DATE, LAST_DATE, LAST30_DATE, BUILDINGS, COMPOST_RATIO, DATES, circularityScore, compostOutput, diversionRate, filterDaily, fmt, sumDaily } from "@/lib/pcrg";
 import { DateInput, Kpi, PageHeader, Panel, Table, Tag, tooltipStyle } from "@/components/kit";
 
 export const Route = createFileRoute("/circularity")({
@@ -17,8 +17,8 @@ export const Route = createFileRoute("/circularity")({
 });
 
 function Circ() {
-  const [from, setFrom] = useState(DATES[0]);
-  const [to, setTo] = useState(DATES[DATES.length - 1]);
+  const [from, setFrom] = useState(FIRST_DATE);
+  const [to, setTo] = useState(LAST_DATE);
   const rows = filterDaily({ from, to });
   const t = sumDaily(rows);
   const cat = { wet: 0, dry: 0, e: 0, haz: 0 };
@@ -28,7 +28,7 @@ function Circ() {
     return { b, s, div: diversionRate(s.composted, s.recycled, s.waste), lpo: s.occupancy ? s.landfill / s.occupancy : 0 };
   });
   const sorted = [...per.map((p) => p.lpo)].sort((a, b) => a - b);
-  const med = sorted[Math.floor(sorted.length / 2)];
+  const med = sorted[Math.floor(sorted.length / 2)] ?? 0;
   const scored = per.map((p) => ({ ...p, score: circularityScore(p.div, p.s.contamination, p.lpo, med) })).sort((a, b) => b.score - a.score);
 
   return (
