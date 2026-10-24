@@ -10,33 +10,154 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AnomaliesRouteImport } from './routes/anomalies'
+import { Route as ChallengeRouteImport } from './routes/challenge'
+import { Route as CircularityRouteImport } from './routes/circularity'
+import { Route as DataHealthRouteImport } from './routes/data-health'
+import { Route as ForecastsRouteImport } from './routes/forecasts'
+import { Route as MethodologyRouteImport } from './routes/methodology'
+import { Route as WasteRouteImport } from './routes/waste'
+import { Route as BuildingsIndexRouteImport } from './routes/buildings.index'
+import { Route as BuildingsIdRouteImport } from './routes/buildings.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AnomaliesRoute = AnomaliesRouteImport.update({
+  id: '/anomalies',
+  path: '/anomalies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChallengeRoute = ChallengeRouteImport.update({
+  id: '/challenge',
+  path: '/challenge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CircularityRoute = CircularityRouteImport.update({
+  id: '/circularity',
+  path: '/circularity',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DataHealthRoute = DataHealthRouteImport.update({
+  id: '/data-health',
+  path: '/data-health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForecastsRoute = ForecastsRouteImport.update({
+  id: '/forecasts',
+  path: '/forecasts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MethodologyRoute = MethodologyRouteImport.update({
+  id: '/methodology',
+  path: '/methodology',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WasteRoute = WasteRouteImport.update({
+  id: '/waste',
+  path: '/waste',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuildingsIndexRoute = BuildingsIndexRouteImport.update({
+  id: '/buildings/',
+  path: '/buildings/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuildingsIdRoute = BuildingsIdRouteImport.update({
+  id: '/buildings/$id',
+  path: '/buildings/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/anomalies': typeof AnomaliesRoute
+  '/challenge': typeof ChallengeRoute
+  '/circularity': typeof CircularityRoute
+  '/data-health': typeof DataHealthRoute
+  '/forecasts': typeof ForecastsRoute
+  '/methodology': typeof MethodologyRoute
+  '/waste': typeof WasteRoute
+  '/buildings/$id': typeof BuildingsIdRoute
+  '/buildings/': typeof BuildingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/anomalies': typeof AnomaliesRoute
+  '/challenge': typeof ChallengeRoute
+  '/circularity': typeof CircularityRoute
+  '/data-health': typeof DataHealthRoute
+  '/forecasts': typeof ForecastsRoute
+  '/methodology': typeof MethodologyRoute
+  '/waste': typeof WasteRoute
+  '/buildings/$id': typeof BuildingsIdRoute
+  '/buildings': typeof BuildingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/anomalies': typeof AnomaliesRoute
+  '/challenge': typeof ChallengeRoute
+  '/circularity': typeof CircularityRoute
+  '/data-health': typeof DataHealthRoute
+  '/forecasts': typeof ForecastsRoute
+  '/methodology': typeof MethodologyRoute
+  '/waste': typeof WasteRoute
+  '/buildings/$id': typeof BuildingsIdRoute
+  '/buildings/': typeof BuildingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/anomalies'
+    | '/challenge'
+    | '/circularity'
+    | '/data-health'
+    | '/forecasts'
+    | '/methodology'
+    | '/waste'
+    | '/buildings/$id'
+    | '/buildings/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/anomalies'
+    | '/challenge'
+    | '/circularity'
+    | '/data-health'
+    | '/forecasts'
+    | '/methodology'
+    | '/waste'
+    | '/buildings/$id'
+    | '/buildings'
+  id:
+    | '__root__'
+    | '/'
+    | '/anomalies'
+    | '/challenge'
+    | '/circularity'
+    | '/data-health'
+    | '/forecasts'
+    | '/methodology'
+    | '/waste'
+    | '/buildings/$id'
+    | '/buildings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnomaliesRoute: typeof AnomaliesRoute
+  ChallengeRoute: typeof ChallengeRoute
+  CircularityRoute: typeof CircularityRoute
+  DataHealthRoute: typeof DataHealthRoute
+  ForecastsRoute: typeof ForecastsRoute
+  MethodologyRoute: typeof MethodologyRoute
+  WasteRoute: typeof WasteRoute
+  BuildingsIdRoute: typeof BuildingsIdRoute
+  BuildingsIndexRoute: typeof BuildingsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +169,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/anomalies': {
+      id: '/anomalies'
+      path: '/anomalies'
+      fullPath: '/anomalies'
+      preLoaderRoute: typeof AnomaliesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/challenge': {
+      id: '/challenge'
+      path: '/challenge'
+      fullPath: '/challenge'
+      preLoaderRoute: typeof ChallengeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/circularity': {
+      id: '/circularity'
+      path: '/circularity'
+      fullPath: '/circularity'
+      preLoaderRoute: typeof CircularityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/data-health': {
+      id: '/data-health'
+      path: '/data-health'
+      fullPath: '/data-health'
+      preLoaderRoute: typeof DataHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forecasts': {
+      id: '/forecasts'
+      path: '/forecasts'
+      fullPath: '/forecasts'
+      preLoaderRoute: typeof ForecastsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/methodology': {
+      id: '/methodology'
+      path: '/methodology'
+      fullPath: '/methodology'
+      preLoaderRoute: typeof MethodologyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/waste': {
+      id: '/waste'
+      path: '/waste'
+      fullPath: '/waste'
+      preLoaderRoute: typeof WasteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buildings/': {
+      id: '/buildings/'
+      path: '/buildings'
+      fullPath: '/buildings/'
+      preLoaderRoute: typeof BuildingsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buildings/$id': {
+      id: '/buildings/$id'
+      path: '/buildings/$id'
+      fullPath: '/buildings/$id'
+      preLoaderRoute: typeof BuildingsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnomaliesRoute: AnomaliesRoute,
+  ChallengeRoute: ChallengeRoute,
+  CircularityRoute: CircularityRoute,
+  DataHealthRoute: DataHealthRoute,
+  ForecastsRoute: ForecastsRoute,
+  MethodologyRoute: MethodologyRoute,
+  WasteRoute: WasteRoute,
+  BuildingsIdRoute: BuildingsIdRoute,
+  BuildingsIndexRoute: BuildingsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
