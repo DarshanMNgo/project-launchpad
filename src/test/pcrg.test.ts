@@ -18,6 +18,6 @@ describe("PCRG rules", () => {
     const { store, log } = reconcile({}, [r, r]);
     expect(log.map((l) => l.result)).toEqual(["inserted", "duplicate"]);
     const old = reconcile(store, [{ ...r, captured_at: "2026-10-18T00:00", electricity_kwh: 9 }]);
-    expect(old.store.x.electricity_kwh).toBe(5);
+    expect(old.store["x"]?.electricity_kwh).toBe(5);
   });
 });

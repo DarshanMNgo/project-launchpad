@@ -20,7 +20,8 @@ function Method() {
   const max = Math.max(...m.confusion.flat());
   const [hw, setHw] = useState({ meter: 6000, gateway: 4500, bins: 4 * 3500, install: 3000 });
   const per = hw.meter + hw.gateway + hw.bins + hw.install;
-  const evals = DATA.forecast_eval as Record<string, Record<string, Record<string, { mae: number; rmse: number }>>>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const evals = DATA.forecast_eval as any;
   return (
     <>
       <PageHeader title="Model & Methodology" crumb="Methodology" desc={`Dataset: ${DATA.dataset}. Artefacts generated ${DATA.generated_at} by scripts/build_data.py.`} />
