@@ -13,7 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AnomaliesRouteImport } from './routes/anomalies'
 import { Route as ChallengeRouteImport } from './routes/challenge'
 import { Route as CircularityRouteImport } from './routes/circularity'
+import { Route as DataHealthRouteImport } from './routes/data-health'
 import { Route as ForecastsRouteImport } from './routes/forecasts'
+import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as WasteRouteImport } from './routes/waste'
 import { Route as BuildingsIndexRouteImport } from './routes/buildings.index'
 import { Route as BuildingsIdRouteImport } from './routes/buildings.$id'
@@ -38,9 +40,19 @@ const CircularityRoute = CircularityRouteImport.update({
   path: '/circularity',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DataHealthRoute = DataHealthRouteImport.update({
+  id: '/data-health',
+  path: '/data-health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ForecastsRoute = ForecastsRouteImport.update({
   id: '/forecasts',
   path: '/forecasts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MethodologyRoute = MethodologyRouteImport.update({
+  id: '/methodology',
+  path: '/methodology',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WasteRoute = WasteRouteImport.update({
@@ -64,7 +76,9 @@ export interface FileRoutesByFullPath {
   '/anomalies': typeof AnomaliesRoute
   '/challenge': typeof ChallengeRoute
   '/circularity': typeof CircularityRoute
+  '/data-health': typeof DataHealthRoute
   '/forecasts': typeof ForecastsRoute
+  '/methodology': typeof MethodologyRoute
   '/waste': typeof WasteRoute
   '/buildings/$id': typeof BuildingsIdRoute
   '/buildings/': typeof BuildingsIndexRoute
@@ -74,7 +88,9 @@ export interface FileRoutesByTo {
   '/anomalies': typeof AnomaliesRoute
   '/challenge': typeof ChallengeRoute
   '/circularity': typeof CircularityRoute
+  '/data-health': typeof DataHealthRoute
   '/forecasts': typeof ForecastsRoute
+  '/methodology': typeof MethodologyRoute
   '/waste': typeof WasteRoute
   '/buildings/$id': typeof BuildingsIdRoute
   '/buildings': typeof BuildingsIndexRoute
@@ -85,7 +101,9 @@ export interface FileRoutesById {
   '/anomalies': typeof AnomaliesRoute
   '/challenge': typeof ChallengeRoute
   '/circularity': typeof CircularityRoute
+  '/data-health': typeof DataHealthRoute
   '/forecasts': typeof ForecastsRoute
+  '/methodology': typeof MethodologyRoute
   '/waste': typeof WasteRoute
   '/buildings/$id': typeof BuildingsIdRoute
   '/buildings/': typeof BuildingsIndexRoute
@@ -97,7 +115,9 @@ export interface FileRouteTypes {
     | '/anomalies'
     | '/challenge'
     | '/circularity'
+    | '/data-health'
     | '/forecasts'
+    | '/methodology'
     | '/waste'
     | '/buildings/$id'
     | '/buildings/'
@@ -107,7 +127,9 @@ export interface FileRouteTypes {
     | '/anomalies'
     | '/challenge'
     | '/circularity'
+    | '/data-health'
     | '/forecasts'
+    | '/methodology'
     | '/waste'
     | '/buildings/$id'
     | '/buildings'
@@ -117,7 +139,9 @@ export interface FileRouteTypes {
     | '/anomalies'
     | '/challenge'
     | '/circularity'
+    | '/data-health'
     | '/forecasts'
+    | '/methodology'
     | '/waste'
     | '/buildings/$id'
     | '/buildings/'
@@ -128,7 +152,9 @@ export interface RootRouteChildren {
   AnomaliesRoute: typeof AnomaliesRoute
   ChallengeRoute: typeof ChallengeRoute
   CircularityRoute: typeof CircularityRoute
+  DataHealthRoute: typeof DataHealthRoute
   ForecastsRoute: typeof ForecastsRoute
+  MethodologyRoute: typeof MethodologyRoute
   WasteRoute: typeof WasteRoute
   BuildingsIdRoute: typeof BuildingsIdRoute
   BuildingsIndexRoute: typeof BuildingsIndexRoute
@@ -164,11 +190,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CircularityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/data-health': {
+      id: '/data-health'
+      path: '/data-health'
+      fullPath: '/data-health'
+      preLoaderRoute: typeof DataHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/forecasts': {
       id: '/forecasts'
       path: '/forecasts'
       fullPath: '/forecasts'
       preLoaderRoute: typeof ForecastsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/methodology': {
+      id: '/methodology'
+      path: '/methodology'
+      fullPath: '/methodology'
+      preLoaderRoute: typeof MethodologyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/waste': {
@@ -200,7 +240,9 @@ const rootRouteChildren: RootRouteChildren = {
   AnomaliesRoute: AnomaliesRoute,
   ChallengeRoute: ChallengeRoute,
   CircularityRoute: CircularityRoute,
+  DataHealthRoute: DataHealthRoute,
   ForecastsRoute: ForecastsRoute,
+  MethodologyRoute: MethodologyRoute,
   WasteRoute: WasteRoute,
   BuildingsIdRoute: BuildingsIdRoute,
   BuildingsIndexRoute: BuildingsIndexRoute,
