@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AnomaliesRouteImport } from './routes/anomalies'
+import { Route as ChallengeRouteImport } from './routes/challenge'
+import { Route as CircularityRouteImport } from './routes/circularity'
 import { Route as ForecastsRouteImport } from './routes/forecasts'
 import { Route as WasteRouteImport } from './routes/waste'
 import { Route as BuildingsIndexRouteImport } from './routes/buildings.index'
@@ -24,6 +26,16 @@ const IndexRoute = IndexRouteImport.update({
 const AnomaliesRoute = AnomaliesRouteImport.update({
   id: '/anomalies',
   path: '/anomalies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChallengeRoute = ChallengeRouteImport.update({
+  id: '/challenge',
+  path: '/challenge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CircularityRoute = CircularityRouteImport.update({
+  id: '/circularity',
+  path: '/circularity',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForecastsRoute = ForecastsRouteImport.update({
@@ -50,6 +62,8 @@ const BuildingsIdRoute = BuildingsIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/anomalies': typeof AnomaliesRoute
+  '/challenge': typeof ChallengeRoute
+  '/circularity': typeof CircularityRoute
   '/forecasts': typeof ForecastsRoute
   '/waste': typeof WasteRoute
   '/buildings/$id': typeof BuildingsIdRoute
@@ -58,6 +72,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/anomalies': typeof AnomaliesRoute
+  '/challenge': typeof ChallengeRoute
+  '/circularity': typeof CircularityRoute
   '/forecasts': typeof ForecastsRoute
   '/waste': typeof WasteRoute
   '/buildings/$id': typeof BuildingsIdRoute
@@ -67,6 +83,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/anomalies': typeof AnomaliesRoute
+  '/challenge': typeof ChallengeRoute
+  '/circularity': typeof CircularityRoute
   '/forecasts': typeof ForecastsRoute
   '/waste': typeof WasteRoute
   '/buildings/$id': typeof BuildingsIdRoute
@@ -77,6 +95,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/anomalies'
+    | '/challenge'
+    | '/circularity'
     | '/forecasts'
     | '/waste'
     | '/buildings/$id'
@@ -85,6 +105,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/anomalies'
+    | '/challenge'
+    | '/circularity'
     | '/forecasts'
     | '/waste'
     | '/buildings/$id'
@@ -93,6 +115,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/anomalies'
+    | '/challenge'
+    | '/circularity'
     | '/forecasts'
     | '/waste'
     | '/buildings/$id'
@@ -102,6 +126,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AnomaliesRoute: typeof AnomaliesRoute
+  ChallengeRoute: typeof ChallengeRoute
+  CircularityRoute: typeof CircularityRoute
   ForecastsRoute: typeof ForecastsRoute
   WasteRoute: typeof WasteRoute
   BuildingsIdRoute: typeof BuildingsIdRoute
@@ -122,6 +148,20 @@ declare module '@tanstack/react-router' {
       path: '/anomalies'
       fullPath: '/anomalies'
       preLoaderRoute: typeof AnomaliesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/challenge': {
+      id: '/challenge'
+      path: '/challenge'
+      fullPath: '/challenge'
+      preLoaderRoute: typeof ChallengeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/circularity': {
+      id: '/circularity'
+      path: '/circularity'
+      fullPath: '/circularity'
+      preLoaderRoute: typeof CircularityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forecasts': {
@@ -158,6 +198,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnomaliesRoute: AnomaliesRoute,
+  ChallengeRoute: ChallengeRoute,
+  CircularityRoute: CircularityRoute,
   ForecastsRoute: ForecastsRoute,
   WasteRoute: WasteRoute,
   BuildingsIdRoute: BuildingsIdRoute,
