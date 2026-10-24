@@ -21,8 +21,8 @@ describe("Dataset upload validation (mirrors scripts/build_data.py)", () => {
     const rep = analyzeHourly(rows);
     expect(rep.duplicates).toBe(1);
     expect(rep.kept).toBe(1);
-    expect(rep.per_building[0].rows).toBe(1);
-    expect(rep.per_building[0].duplicates).toBe(1);
+    expect(rep.per_building[0]!.rows).toBe(1);
+    expect(rep.per_building[0]!.duplicates).toBe(1);
   });
 
   it("rejects out-of-range readings instead of zero-filling", () => {
@@ -37,8 +37,8 @@ describe("Dataset upload validation (mirrors scripts/build_data.py)", () => {
       { timestamp: "2026-10-01 05:00", building_id: "B01", electricity_kwh: 10, water_litres: 100, solar_generation_kwh: 0, footfall: 5, received_at: "2026-10-01 05:05" },
       { timestamp: "2026-10-01 09:00", building_id: "B01", electricity_kwh: 10, water_litres: 100, solar_generation_kwh: 0, footfall: 5, received_at: "2026-10-01 09:05" },
     ]);
-    expect(rep.per_building[0].missing_hours).toBe(3);
-    expect(rep.per_building[0].gaps[0]).toMatchObject({ hours: 3 });
+    expect(rep.per_building[0]!.missing_hours).toBe(3);
+    expect(rep.per_building[0]!.gaps[0]).toMatchObject({ hours: 3 });
   });
 
   it("resolves manual-log aliases the same way as the pipeline", () => {
@@ -54,6 +54,6 @@ describe("Dataset upload validation (mirrors scripts/build_data.py)", () => {
     expect(rep.samples.find((l) => l.log_id === "L2")).toMatchObject({ building_id: null, status: "needs_review" });
     expect(rep.unresolved).toBe(1);
     expect(rep.estimated).toBe(1);
-    expect(UNITS.kL.f).toBe(1000);
+    expect(UNITS["kL"]?.f).toBe(1000);
   });
 });
