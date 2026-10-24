@@ -66,7 +66,7 @@ export function missingColumns(kind: Kind | null, headers: string[]) {
 }
 
 export type HourlyBuilding = {
-  building_id: string; rows: number; missing_hours: number; gap_count: number;
+  building_id: string; rows: number; duplicates: number; missing_hours: number; gap_count: number;
   gaps: { start: string; hours: number }[]; delayed_over_2h: number; max_delay_h: number | null;
   median_delay_min: number | null; last_capture: string | null;
 };
@@ -101,6 +101,7 @@ export function analyzeHourly(rows: Row[]): HourlyReport {
   const bids = [...new Set(kept.map((r) => String(r.building_id)))].sort();
   for (const bid of bids) {
     const h = kept.filter((r) => String(r.building_id) === bid);
+    const dupes = [...dups].filter((k) => k.startsWith(`${bid}|`)).length;
     const tss = h.map((r) => parseTs(r.timestamp)).filter((t) => !Number.isNaN(t)).sort((a, b) => a - b);
     const t0 = tss[0], t1 = tss[tss.length - 1];
     const present = new Set(tss);
@@ -118,7 +119,7 @@ export function analyzeHourly(rows: Row[]): HourlyReport {
     }
     const delays = h.map((r) => (parseTs(r.received_at) - parseTs(r.timestamp)) / 60000).filter((d) => Number.isFinite(d));
     per.push({
-      building_id: bid, rows: h.length, missing_hours: missing, gap_count: gaps.length,
+      building_id: bid, rows: h.length, duplicates: dupes, missing_hours: missing, gap_count: gaps.length,
       gaps: gaps.sort((a, b) => b.hours - a.hours).slice(0, 8),
       delayed_over_2h: delays.filter((d) => d > 120).length,
       max_delay_h: delays.length ? Math.round((Math.max(...delays) / 60) * 10) / 10 : null,

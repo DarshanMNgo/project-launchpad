@@ -24,7 +24,6 @@ type Result = {
   hourly?: HourlyReport; logs?: LogsReport; generic?: GenericReport;
 };
 
-const HOUR_FIELDS = ["electricity_kwh", "water_litres", "solar_generation_kwh", "footfall"];
 
 function Ingest() {
   const [role] = useRole();
@@ -101,7 +100,7 @@ function Ingest() {
       )}
 
       {results.map((r) => (
-        <Panel className="mt-4" key={r.name} title={r.name} sub={r.kind ? `${LABEL[r.kind]} · matched by ${r.matchedByBy ?? r.matchedBy}` : "Unknown file"}
+        <Panel className="mt-4" key={r.name} title={r.name} sub={r.kind ? `${LABEL[r.kind]} · matched by ${r.matchedBy}` : "Unknown file"}
           right={r.ok ? (r.missing.length ? <Tag tone="bad">schema: missing {r.missing.join(", ")}</Tag> : <Tag tone="good">schema ok</Tag>) : <Tag tone="bad">read error</Tag>}>
           {r.error && <p className="text-sm text-red-500">{r.error}</p>}
           {!r.error && <p className="mb-3 text-sm text-muted-foreground">{fmt(r.rows)} rows</p>}
@@ -111,7 +110,7 @@ function Ingest() {
                 <tr key={b.building_id}>
                   <td>{bName(b.building_id)}</td><td className="num">{b.rows}</td><td className="num">{b.missing_hours}</td>
                   <td className="num text-xs">{b.gaps[0] ? `${b.gaps[0].hours} h @ ${b.gaps[0].start}` : "—"}</td>
-                  <td className="num">{r.hourly!.duplicates ? "see KPI" : 0}</td>
+                  <td className="num">{b.duplicates}</td>
                   <td className="num">{b.delayed_over_2h}</td><td className="num text-xs">{b.max_delay_h ?? "—"} h</td>
                   <td className="num text-xs">{b.last_capture ?? "—"}</td>
                 </tr>

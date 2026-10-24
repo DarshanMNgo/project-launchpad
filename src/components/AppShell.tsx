@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
-import { Activity, Building2, Gauge, Leaf, LineChart, Menu, Recycle, ShieldAlert, Trophy, Database, FlaskConical } from "lucide-react";
+import { Activity, Building2, Gauge, Leaf, LineChart, Menu, Recycle, ShieldAlert, Trophy, Database, FlaskConical, Upload } from "lucide-react";
 import { useRole, ROLES } from "@/lib/role";
 import { cn } from "@/lib/utils";
 
@@ -37,6 +37,15 @@ export function AppShell({ children }: { children: ReactNode }) {
               <n.icon className="h-4 w-4" /> {n.label}
             </Link>
           ))}
+          {role === "Facility Manager" && (
+            <div className="mt-2 border-t border-sidebar-border pt-2">
+              <Link to="/ingest" onClick={() => setOpen(false)}
+                className="flex items-center gap-3 rounded-md px-3 py-2 text-sm opacity-80 hover:bg-sidebar-accent hover:opacity-100"
+                activeProps={{ className: "bg-sidebar-accent !opacity-100 text-sidebar-primary" }}>
+                <Upload className="h-4 w-4" /> Dataset Upload
+              </Link>
+            </div>
+          )}
         </nav>
         <div className="border-t border-sidebar-border p-4 text-xs">
           <label className="mb-1 block opacity-60">Demo role (not secure auth)</label>
