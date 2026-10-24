@@ -15,6 +15,7 @@ import { Route as ChallengeRouteImport } from './routes/challenge'
 import { Route as CircularityRouteImport } from './routes/circularity'
 import { Route as DataHealthRouteImport } from './routes/data-health'
 import { Route as ForecastsRouteImport } from './routes/forecasts'
+import { Route as IngestRouteImport } from './routes/ingest'
 import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as WasteRouteImport } from './routes/waste'
 import { Route as BuildingsIndexRouteImport } from './routes/buildings.index'
@@ -50,6 +51,11 @@ const ForecastsRoute = ForecastsRouteImport.update({
   path: '/forecasts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IngestRoute = IngestRouteImport.update({
+  id: '/ingest',
+  path: '/ingest',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MethodologyRoute = MethodologyRouteImport.update({
   id: '/methodology',
   path: '/methodology',
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/circularity': typeof CircularityRoute
   '/data-health': typeof DataHealthRoute
   '/forecasts': typeof ForecastsRoute
+  '/ingest': typeof IngestRoute
   '/methodology': typeof MethodologyRoute
   '/waste': typeof WasteRoute
   '/buildings/$id': typeof BuildingsIdRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/circularity': typeof CircularityRoute
   '/data-health': typeof DataHealthRoute
   '/forecasts': typeof ForecastsRoute
+  '/ingest': typeof IngestRoute
   '/methodology': typeof MethodologyRoute
   '/waste': typeof WasteRoute
   '/buildings/$id': typeof BuildingsIdRoute
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/circularity': typeof CircularityRoute
   '/data-health': typeof DataHealthRoute
   '/forecasts': typeof ForecastsRoute
+  '/ingest': typeof IngestRoute
   '/methodology': typeof MethodologyRoute
   '/waste': typeof WasteRoute
   '/buildings/$id': typeof BuildingsIdRoute
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/circularity'
     | '/data-health'
     | '/forecasts'
+    | '/ingest'
     | '/methodology'
     | '/waste'
     | '/buildings/$id'
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/circularity'
     | '/data-health'
     | '/forecasts'
+    | '/ingest'
     | '/methodology'
     | '/waste'
     | '/buildings/$id'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/circularity'
     | '/data-health'
     | '/forecasts'
+    | '/ingest'
     | '/methodology'
     | '/waste'
     | '/buildings/$id'
@@ -154,6 +166,7 @@ export interface RootRouteChildren {
   CircularityRoute: typeof CircularityRoute
   DataHealthRoute: typeof DataHealthRoute
   ForecastsRoute: typeof ForecastsRoute
+  IngestRoute: typeof IngestRoute
   MethodologyRoute: typeof MethodologyRoute
   WasteRoute: typeof WasteRoute
   BuildingsIdRoute: typeof BuildingsIdRoute
@@ -204,6 +217,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForecastsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ingest': {
+      id: '/ingest'
+      path: '/ingest'
+      fullPath: '/ingest'
+      preLoaderRoute: typeof IngestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/methodology': {
       id: '/methodology'
       path: '/methodology'
@@ -242,6 +262,7 @@ const rootRouteChildren: RootRouteChildren = {
   CircularityRoute: CircularityRoute,
   DataHealthRoute: DataHealthRoute,
   ForecastsRoute: ForecastsRoute,
+  IngestRoute: IngestRoute,
   MethodologyRoute: MethodologyRoute,
   WasteRoute: WasteRoute,
   BuildingsIdRoute: BuildingsIdRoute,
